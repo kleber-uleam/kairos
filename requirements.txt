@@ -1,0 +1,5 @@
+# --- Dependencias principales del proyectos ---
+# OBLIGATORIEDAD
+Django==5.2.19
+
+# --- Dependencias extra del proyecto ---

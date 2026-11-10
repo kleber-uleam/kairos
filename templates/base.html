@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Kairós{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <header class="encabezado">
+        <a href="{% url 'inicio' %}" class="marca">Kairós</a>
+    </header>
+
+    {% if messages %}
+    <ul class="mensajes">
+        {% for mensaje in messages %}
+            <li class="mensaje {{mensaje.tags}}">{{ mensaje }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <main class="contenido">
+        {% block contenido %}
+        {% endblock %}
+    </main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+# Python y entornos virtuales
+.venv/
+__pycache__/
+*.pyc
+*.py[cod]
+
+# Base de datos local
+db.sqlite3
+
+# Archivos multimedia generados localmente
+media/
+
+# Configuraciones de editores de código
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Archivos de log o del sistema
+*.ini
+*.log
