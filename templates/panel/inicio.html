@@ -1,8 +1,280 @@
 {% extends 'base.html' %}
+{% load static %}
 
-{% block titulo %}Inicio - Kairós{% endblock %}
+{% block titulo %}Kairós · Horarios académicos sin conflictos{% endblock %}
+
+{% block descripcion %}Kairós organiza los horarios de tu institución: asigna docentes y aulas, detecta conflictos antes de publicar y entrega horarios claros a toda la comunidad académica.{% endblock %}
+
+{% block clase_cuerpo %}pagina-inicio{% endblock %}
+
+{% block estilos_extra %}
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+{% endblock %}
+
+{% block navegacion %}
+<nav class="encabezado__nav inicio-nav" aria-label="Navegación principal">
+    <a href="#funciones" class="encabezado__enlace inicio-nav__ancla">Funciones</a>
+    <a href="#como-funciona" class="encabezado__enlace inicio-nav__ancla">Cómo funciona</a>
+    <a href="#modulos" class="encabezado__enlace inicio-nav__ancla">Módulos</a>
+</nav>
+{% endblock %}
 
 {% block contenido %}
-    <h1>Kairós</h1>
-    <p>Sistema de gestión de horarios académicos.</p>
+<section class="inicio-hero">
+    <div class="inicio-hero__texto animar-entrada">
+        <p class="inicio-eyebrow">
+            <span class="indicador indicador--activo" aria-hidden="true"></span>
+            Gestión académica · Kairós
+        </p>
+
+        <h1>Horarios académicos sin conflictos, en un solo lugar.</h1>
+
+        <p class="inicio-hero__bajada">
+            Asigna docentes, aulas y bloques en una rejilla compartida. Kairós detecta los choques
+            antes de publicar, para que cada semestre empiece a tiempo y sin correcciones de última hora.
+        </p>
+
+        <div class="grupo-botones">
+            <a href="#funciones" class="boton boton--primario">Explorar funciones</a>
+            <a href="#como-funciona" class="boton boton--secundario">Ver cómo funciona</a>
+        </div>
+
+        <ul class="inicio-hero__lista">
+            <li>Detección de conflictos</li>
+            <li>Rejilla visual de horarios</li>
+            <li>Listo para imprimir</li>
+        </ul>
+    </div>
+
+    <div class="inicio-hero__visual animar-entrada" style="--retraso: 120ms">
+        <div class="inicio-maqueta" aria-hidden="true">
+            <div class="inicio-maqueta__cabecera">
+                <div>
+                    <p class="label-sm">Horario vigente</p>
+                    <p class="inicio-maqueta__titulo">Ingeniería · 2026-1</p>
+                </div>
+                <span class="chip chip--activo">Publicado</span>
+            </div>
+
+            <div class="inicio-maqueta__dias">
+                <div class="inicio-maqueta__columna">
+                    <p class="label-sm">Lun</p>
+                    <div class="bloque bloque--ocupado">
+                        <span class="bloque__codigo">MAT-201</span>
+                        <span class="bloque__docente">Cálculo II</span>
+                        <span class="bloque__aula">B-204 · 07:00</span>
+                    </div>
+                    <div class="bloque bloque--ocupado">
+                        <span class="bloque__codigo">FIS-102</span>
+                        <span class="bloque__docente">Física I</span>
+                        <span class="bloque__aula">Lab. 3 · 10:00</span>
+                    </div>
+                </div>
+
+                <div class="inicio-maqueta__columna">
+                    <p class="label-sm">Mié</p>
+                    <div class="bloque bloque--ocupado">
+                        <span class="bloque__codigo">PRO-310</span>
+                        <span class="bloque__docente">Programación</span>
+                        <span class="bloque__aula">Lab. 1 · 08:00</span>
+                    </div>
+                    <div class="bloque bloque--conflicto">
+                        <span class="bloque__codigo">MAT-201</span>
+                        <span class="bloque__docente">Cálculo II</span>
+                        <span class="bloque__aula">Sin aula · 10:00</span>
+                    </div>
+                </div>
+
+                <div class="inicio-maqueta__columna">
+                    <p class="label-sm">Vie</p>
+                    <div class="bloque bloque--ocupado">
+                        <span class="bloque__codigo">EST-220</span>
+                        <span class="bloque__docente">Estadística</span>
+                        <span class="bloque__aula">Aula A-112 · 09:00</span>
+                    </div>
+                    <div class="bloque bloque--disponible">
+                        <span class="bloque__codigo">Disponible</span>
+                        <span class="bloque__docente">Aula B-204</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inicio-maqueta__aviso">
+                <span class="aviso__icono">!</span>
+                <span><strong>Conflicto detectado:</strong> el docente ya tiene clase a esa hora.</span>
+            </div>
+
+            <div class="inicio-maqueta__insignia">
+                <span class="indicador indicador--exito" aria-hidden="true"></span>
+                0 conflictos tras la validación
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="inicio-metricas">
+    <div class="tarjeta-metrica">
+        <span class="tarjeta-metrica__etiqueta">Docentes</span>
+        <span class="tarjeta-metrica__valor">48</span>
+        <span class="tarjeta-metrica__detalle">Activos en el periodo</span>
+    </div>
+    <div class="tarjeta-metrica">
+        <span class="tarjeta-metrica__etiqueta">Aulas</span>
+        <span class="tarjeta-metrica__valor">26</span>
+        <span class="tarjeta-metrica__detalle">Aulas y laboratorios</span>
+    </div>
+    <div class="tarjeta-metrica">
+        <span class="tarjeta-metrica__etiqueta">Bloques semanales</span>
+        <span class="tarjeta-metrica__valor">312</span>
+        <span class="tarjeta-metrica__detalle">Distribuidos sin choques</span>
+    </div>
+    <div class="tarjeta-metrica tarjeta-metrica--exito">
+        <!-- Cifra de referencia, será posiblemente cambiado -->
+        <span class="tarjeta-metrica__etiqueta">Conflictos abiertos</span>
+        <span class="tarjeta-metrica__valor">0</span>
+        <span class="tarjeta-metrica__detalle">Verificados antes de publicar</span>
+    </div>
+    <!--
+        Implementación luego de metricas para ilustrar el panel; esto se conectan en base a datos reales al tener completados y habilitados los módulos
+    -->
+</div>
+
+<section class="inicio-seccion" id="funciones">
+    <div class="inicio-seccion__cabecera">
+        <p class="inicio-etiqueta">Funciones</p>
+        <h2>Menos hojas de cálculo, más control</h2>
+        <p>Todo lo necesario para planificar el semestre desde una sola consola, con reglas claras y resultados verificables.</p>
+    </div>
+
+    <div class="inicio-funciones">
+        <article class="tarjeta inicio-funcion">
+            <span class="inicio-funcion__icono" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 2.6 17.2a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg>
+            </span>
+            <h3>Detección de conflictos</h3>
+            <p>Choques de docente, aula o grupo se señalan al instante en la rejilla, con el motivo y el bloque implicado.</p>
+            <div class="inicio-funcion__pie">
+                <span class="chip chip--conflicto">Docente · Aula · Grupo</span>
+            </div>
+        </article>
+
+        <article class="tarjeta inicio-funcion">
+            <span class="inicio-funcion__icono" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18"/><path d="M8 14h3M8 17h6"/></svg>
+            </span>
+            <h3>Asignación de recursos</h3>
+            <p>Distribuye docentes y aulas según disponibilidad, capacidad y jornada, sin repetir reservas en el mismo horario.</p>
+            <div class="inicio-funcion__pie">
+                <span class="chip chip--disponible">Disponibilidad en vivo</span>
+            </div>
+        </article>
+
+        <article class="tarjeta inicio-funcion">
+            <span class="inicio-funcion__icono" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h10"/><path d="M18 16l2 2 3-4" transform="translate(-2 0)"/></svg>
+            </span>
+            <h3>Horarios listos para publicar</h3>
+            <p>Consulta el horario por carrera, docente o aula, y compártelo en pantalla o impreso con un diseño legible.</p>
+            <div class="inicio-funcion__pie">
+                <span class="chip">Vista por carrera, docente y aula</span>
+            </div>
+        </article>
+    </div>
+</section>
+<section class="inicio-seccion" id="como-funciona">
+    <div class="inicio-seccion__cabecera">
+        <p class="inicio-etiqueta">Cómo funciona</p>
+        <h2>Tres pasos para cerrar el semestre</h2>
+        <p>El flujo sigue el orden real de la planificación académica: primero los recursos, después los bloques y al final la validación.</p>
+    </div>
+
+    <ol class="inicio-pasos">
+        <li class="inicio-paso">
+            <span class="inicio-paso__numero">01</span>
+            <h3>Define los recursos</h3>
+            <p>Registra docentes, aulas, laboratorios y la jornada disponible de cada uno.</p>
+        </li>
+        <li class="inicio-paso">
+            <span class="inicio-paso__numero">02</span>
+            <h3>Arma el horario</h3>
+            <p>Asigna materias a bloques sobre la rejilla semanal; los cupos y choques se actualizan al momento.</p>
+        </li>
+        <li class="inicio-paso">
+            <span class="inicio-paso__numero">03</span>
+            <h3>Valida y publica</h3>
+            <p>Revisa los conflictos pendientes, confirma la versión final y compártela con la institución.</p>
+        </li>
+    </ol>
+</section>
+
+<section class="inicio-seccion" id="modulos">
+    <div class="inicio-seccion__cabecera">
+        <p class="inicio-etiqueta">Módulos</p>
+        <h2>Un sistema, cuatro frentes de trabajo</h2>
+        <p>Cada módulo cubre una parte del proceso y comparte la misma base de datos académica.</p>
+    </div>
+
+    <div class="inicio-modulos">
+        <article class="tarjeta inicio-modulo">
+            <div class="inicio-modulo__cabecera">
+                <span class="insignia">Módulo 01</span>
+                <span class="chip">Usuarios</span>
+            </div>
+            <h3>Usuarios y roles</h3>
+            <p>Coordinadores, docentes y administradores con permisos separados para consultar y editar.</p>
+        </article>
+
+        <article class="tarjeta inicio-modulo">
+            <div class="inicio-modulo__cabecera">
+                <span class="insignia">Módulo 02</span>
+                <span class="chip">Recursos</span>
+            </div>
+            <h3>Recursos académicos</h3>
+            <p>Aulas, laboratorios, capacidades y disponibilidad en un catálogo único y reutilizable.</p>
+        </article>
+
+        <article class="tarjeta inicio-modulo">
+            <div class="inicio-modulo__cabecera">
+                <span class="insignia">Módulo 03</span>
+                <span class="chip">Horarios</span>
+            </div>
+            <h3>Planificación de horarios</h3>
+            <p>Rejilla semanal por periodo, con edición de bloques y vistas filtradas por carrera o docente.</p>
+        </article>
+
+        <article class="tarjeta inicio-modulo">
+            <div class="inicio-modulo__cabecera">
+                <span class="insignia">Módulo 04</span>
+                <span class="chip chip--conflicto">Conflictos</span>
+            </div>
+            <h3>Control de conflictos</h3>
+            <p>Registro de incidencias detectadas, su causa y el estado de resolución antes de publicar.</p>
+        </article>
+    </div>
+</section>
+
+<section class="inicio-cta">
+    <div class="inicio-cta__texto">
+        <p class="inicio-etiqueta inicio-etiqueta--clara">Empieza hoy</p>
+        <h2>Tu próximo semestre, sin choques de horario.</h2>
+        <p>Explora los componentes del sistema y mira cómo se verá la consola de planificación de Kairós.</p>
+    </div>
+    <div class="grupo-botones inicio-cta__acciones">
+        <a href="#funciones" class="boton inicio-cta__boton">Explorar funciones</a>
+        <a href="#modulos" class="boton inicio-cta__boton-secundario">Revisar módulos</a>
+    </div>
+</section>
+{% endblock %}
+
+{% block pie %}
+<footer class="pie pie--inicio">
+    <div class="pie__identidad">
+        <span class="pie__marca">Kairós</span>
+        <p class="pie__texto">Gestión académica de horarios · Universidad sin conflictos.</p>
+    </div>
+    <nav class="pie__nav" aria-label="Navegación del pie">
+        <a href="{% url 'inicio' %}">Inicio</a>
+        <a href="/admin/">Administración</a>
+    </nav>
+</footer>
 {% endblock %}
