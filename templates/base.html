@@ -4,25 +4,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#05668d">
+    <meta name="description" content="{% block descripcion %}Kairós · Sistema de gestión académica de horarios.{% endblock %}">
     <title>{% block titulo %}Kairós{% endblock %}</title>
+
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/componentes.css' %}">
+    {% block estilos_extra %}{% endblock %}
 </head>
-<body>
+<body class="{% block clase_cuerpo %}{% endblock %}">
+    <a class="sr-solo" href="#contenido-principal">Saltar al contenido principal</a>
+
     <header class="encabezado">
         <a href="{% url 'inicio' %}" class="marca">Kairós</a>
+
+        {% block navegacion %}
+        <nav class="encabezado__nav" aria-label="Navegación principal" data-nav>
+            <a href="{% url 'inicio' %}" class="encabezado__enlace">Inicio</a>
+        </nav>
+        {% endblock %}
     </header>
 
     {% if messages %}
-    <ul class="mensajes">
+    <ul class="mensajes" role="status" aria-live="polite">
         {% for mensaje in messages %}
-            <li class="mensaje {{mensaje.tags}}">{{ mensaje }}</li>
+            <li class="mensaje {{ mensaje.tags }}">{{ mensaje }}</li>
         {% endfor %}
     </ul>
     {% endif %}
 
-    <main class="contenido">
+    <main class="contenido" id="contenido-principal">
         {% block contenido %}
         {% endblock %}
     </main>
+
+    {% block pie %}
+    <footer class="pie">
+        <p class="pie__texto">Kairós · Gestión académica de horarios</p>
+    </footer>
+    {% endblock %}
+
+    <div class="notificaciones" role="status" aria-live="polite"></div>
+
+    <script src="{% static 'js/base.js' %}" defer></script>
+    {% block scripts_extra %}{% endblock %}
 </body>
 </html>

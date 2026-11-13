@@ -19,3 +19,4 @@ media/
 # Archivos de log o del sistema
 *.ini
 *.log
+*.err
