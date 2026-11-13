@@ -11,12 +11,8 @@
     <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
 {% endblock %}
 
-{% block navegacion %}
-<nav class="encabezado__nav inicio-nav" aria-label="Navegación principal">
-    <a href="#funciones" class="encabezado__enlace inicio-nav__ancla">Funciones</a>
-    <a href="#como-funciona" class="encabezado__enlace inicio-nav__ancla">Cómo funciona</a>
-    <a href="#modulos" class="encabezado__enlace inicio-nav__ancla">Módulos</a>
-</nav>
+{% block encabezado %}
+{% include 'components/_navbar.html' with nav_parcial='components/_nav_panel.html' %}
 {% endblock %}
 
 {% block contenido %}

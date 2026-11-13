@@ -15,15 +15,9 @@
 <body class="{% block clase_cuerpo %}{% endblock %}">
     <a class="sr-solo" href="#contenido-principal">Saltar al contenido principal</a>
 
-    <header class="encabezado">
-        <a href="{% url 'inicio' %}" class="marca">Kairós</a>
-
-        {% block navegacion %}
-        <nav class="encabezado__nav" aria-label="Navegación principal" data-nav>
-            <a href="{% url 'inicio' %}" class="encabezado__enlace">Inicio</a>
-        </nav>
-        {% endblock %}
-    </header>
+    {% block encabezado %}
+    {% include 'components/_navbar.html' %}
+    {% endblock %}
 
     {% if messages %}
     <ul class="mensajes" role="status" aria-live="polite">

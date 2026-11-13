@@ -1,0 +1,15 @@
+{% comment %}
+==========================================================================
+KAIRÓS - Menú del panel
+Navegación propia del área de gestión. Parcial para components/_navbar.html.
+Se pasa con: {% include 'components/_navbar.html' with nav_parcial='components/_nav_panel.html' %}
+
+Los módulos aún no exponen vistas propias (apps/*/urls.py vacíos): estos
+enlaces apuntan a las rutas reservadas en config/urls.py y responderán
+cuando cada app implemente sus vistas.
+==========================================================================
+{% endcomment %}
+<a href="{% url 'inicio' %}" class="encabezado__enlace">Inicio</a>
+<a href="/horarios/" class="encabezado__enlace">Horarios</a>
+<a href="/recursos/" class="encabezado__enlace">Recursos</a>
+<a href="/conflictos/" class="encabezado__enlace">Conflictos</a>

@@ -1,0 +1,87 @@
+{% comment %}
+==========================================================================
+KAIRÓS - Componente: navbar institucional
+Parcial reutilizable. No extiende plantillas ni define bloques: se inserta
+con {% include %} desde cualquier template.
+
+Uso básico:
+    {% include 'components/_navbar.html' %}
+
+Con un menú propio (lista de dicts: texto, url, activo):
+    {% include 'components/_navbar.html' with nav_enlaces=menu_horarios %}
+
+Con llamada a la acción a la derecha:
+    {% include 'components/_navbar.html' with nav_accion_texto="Nuevo horario" nav_accion_url=url_nuevo %}
+
+Con menú de usuario:
+    {% include 'components/_navbar.html' with nav_usuario=usuario nav_usuario_perfil_url=url_perfil nav_usuario_salir_url=url_salir %}
+
+Con un menú definido en su propio parcial (permite {% url %} y anclas):
+    {% include 'components/_navbar.html' with nav_parcial='components/_nav_panel.html' %}
+
+Variables de contexto (todas opcionales):
+    nav_marca               Texto de la marca            (por defecto "Kairós")
+    nav_marca_url           Destino de la marca          (por defecto {% url 'inicio' %})
+    nav_etiqueta            aria-label del <nav>         (por defecto "Navegación principal")
+    nav_enlaces             Menú propio                  (por defecto Inicio, Componentes y Administración)
+    nav_parcial             Parcial que dibuja los enlaces del menú (tiene prioridad sobre nav_enlaces)
+    nav_accion_texto        Texto del botón de acción    (sin botón si falta)
+    nav_accion_url          Destino del botón de acción
+    nav_usuario             Dict con nombre, iniciales y detalle (sin menú si falta)
+    nav_usuario_perfil_url  Enlace "Perfil" del menú de cuenta
+    nav_usuario_salir_url   Enlace "Cerrar sesión" del menú de cuenta
+
+El estado activo lo resuelve js/base.js sobre [data-nav] comparando la ruta
+actual; el flag "activo" de cada enlace permite forzarlo cuando haga falta.
+==========================================================================
+{% endcomment %}
+<header class="encabezado">
+    <a class="marca" href="{% if nav_marca_url %}{{ nav_marca_url }}{% else %}{% url 'inicio' %}{% endif %}">{{ nav_marca|default:"Kairós" }}</a>
+
+    <nav class="encabezado__nav" aria-label="{{ nav_etiqueta|default:'Navegación principal' }}" data-nav>
+        {% if nav_parcial %}
+            {% include nav_parcial %}
+        {% elif nav_enlaces %}
+            {% for enlace in nav_enlaces %}
+            <a class="encabezado__enlace{% if enlace.activo %} activo{% endif %}"
+                href="{{ enlace.url }}"
+                {% if enlace.activo %}aria-current="page"{% endif %}>{{ enlace.texto }}</a>
+            {% endfor %}
+        {% else %}
+            <a class="encabezado__enlace" href="{% url 'inicio' %}">Inicio</a>
+            <a class="encabezado__enlace" href="{% url 'demo-componentes' %}">Componentes</a>
+            <a class="encabezado__enlace" href="/admin/">Administración</a>
+        {% endif %}
+    </nav>
+
+    {% if nav_accion_texto and nav_accion_url %}
+    <a class="boton boton--primario boton--pequeno" href="{{ nav_accion_url }}">{{ nav_accion_texto }}</a>
+    {% endif %}
+
+    {% if nav_usuario %}
+    <div class="menu-usuario" data-desplegable>
+        <button type="button"
+                class="menu-usuario__disparador"
+                aria-expanded="false"
+                aria-haspopup="true"
+                data-desplegable-disparador
+                {% if nav_usuario.detalle %}title="{{ nav_usuario.detalle }}"{% endif %}>
+            <span class="menu-usuario__avatar" aria-hidden="true">{{ nav_usuario.iniciales|default:"?" }}</span>
+            <span class="menu-usuario__nombre">{{ nav_usuario.nombre|default:"Mi cuenta" }}</span>
+        </button>
+        <div class="desplegable" hidden>
+            <span class="desplegable__etiqueta">Cuenta</span>
+            {% if nav_usuario.detalle %}
+            <p class="ayuda" style="padding: 0 0.75rem var(--space-xs); margin: 0;">{{ nav_usuario.detalle }}</p>
+            {% endif %}
+            {% if nav_usuario_perfil_url %}
+            <a class="desplegable__opcion" href="{{ nav_usuario_perfil_url }}">Perfil</a>
+            {% endif %}
+            {% if nav_usuario_salir_url %}
+                {% if nav_usuario_perfil_url %}<hr class="desplegable__separador">{% endif %}
+            <a class="desplegable__opcion" href="{{ nav_usuario_salir_url }}">Cerrar sesión</a>
+            {% endif %}
+        </div>
+    </div>
+    {% endif %}
+</header>
