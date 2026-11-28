@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block titulo %}Agregar sesión · Kairós{% endblock %}
+
+{% block contenido %}
+<h1>Agregar sesión a {{ horario.nombre }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Agregar</button>
+    <a href="{% url 'horarios:detalle' horario.pk %}">Cancelar</a>
+</form>
+{% endblock %}

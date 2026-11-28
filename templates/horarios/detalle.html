@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block titulo %}{{ horario.nombre }} · Kairós{% endblock %}
+
+{% block contenido %}
+<h1>{{ horario.nombre }}</h1>
+<p>Periodo: {{ horario.periodo }} |
+   Estado: <strong>{{ horario.get_estado_display }}</strong></p>
+
+{% if horario.estado == "borrador" %}
+    <p><a href="{% url 'horarios:agregar_sesion' horario.pk %}">+ Agregar sesión</a></p>
+{% endif %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Materia</th><th>Profesor</th><th>Grupo</th><th>Aula</th>
+            <th>Día</th><th>Inicio</th><th>Fin</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sesion in sesiones %}
+        <tr>
+            <td>{{ sesion.materia }}</td>
+            <td>{{ sesion.profesor }}</td>
+            <td>{{ sesion.grupo }}</td>
+            <td>{{ sesion.aula }}</td>
+            <td>{{ sesion.get_dia_display }}</td>
+            <td>{{ sesion.hora_inicio|time:"H:i" }}</td>
+            <td>{{ sesion.hora_fin|time:"H:i" }}</td>
+            <td>
+                {% if horario.estado == "borrador" %}
+                <form method="post" action="{% url 'horarios:quitar_sesion' sesion.pk %}">
+                    {% csrf_token %}
+                    <button type="submit">Quitar</button>
+                </form>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8">Aún no hay sesiones.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if horario.estado == "borrador" %}
+<form method="post" action="{% url 'horarios:publicar' horario.pk %}">
+    {% csrf_token %}
+    <button type="submit">Publicar horario</button>
+</form>
+{% endif %}
+{% endblock %}
